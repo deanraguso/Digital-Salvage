@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
+  # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -11,8 +11,27 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    
-    super
+    address_params = params[:address].permit(:country, :state, :postal_code, :street_address, :premise, :sub_premise)
+    address = Address.new(address_params)
+
+    # Save address first, explicitly, so I can user it's id.
+    unless address.save
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: address.errors, status: :unprocessable_entity }
+    end
+
+    user_params = params[:user].permit(:first_name, :last_name, :email, :password, :password_confirmation).merge(:address_id => address.id)
+    user = User.new(user_params)
+
+    if user.save!
+      sign_in(user)
+
+    else
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: user.errors, status: :unprocessable_entity }
+    end
+
+    redirect_to root_path
   end
 
   # GET /resource/edit
@@ -42,12 +61,8 @@ class User::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:country, :state, :postal_code,
-                                      :street_address, :premise, :sub_premise,
-                                      :email, :password, :password_encrypted,
-                                      :first_name, :last_name])
-  end
+  # def configure_sign_up_params
+  # end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
