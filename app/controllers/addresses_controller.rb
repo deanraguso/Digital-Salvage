@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
   before_action :set_address, only: %i[ show edit update destroy ]
-  before_action :authorized_user?
+  before_action :authorized_user?, excpet: 
 
   # GET /addresses/1 or /addresses/1.json
   def show

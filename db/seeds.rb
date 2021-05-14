@@ -34,7 +34,7 @@ puts "Created: 6 unique addresses."
         address_id: (index/2 + 1))
 end
 
-puts "Created: 12 unique users."
+puts "Created: 12 unique users. (Passwords use capial letters start of names!)"
 
 User.create!(first_name: "Sample", last_name: "Account",
     email: "sample@sample.com",
