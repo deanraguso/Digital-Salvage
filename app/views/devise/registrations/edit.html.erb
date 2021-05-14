@@ -48,4 +48,4 @@
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p><br>
 <%= link_to "Update Address", edit_address_path(current_user.address.id) %><br>
-<%= link_to "Back", :back %>
+<%= link_to "Back", root_path %>
