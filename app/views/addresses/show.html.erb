@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @address.country %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @address.state %>
+</p>
+
+<p>
+  <strong>Postal code:</strong>
+  <%= @address.postal_code %>
+</p>
+
+<p>
+  <strong>Street address:</strong>
+  <%= @address.street_address %>
+</p>
+
+<p>
+  <strong>Premise:</strong>
+  <%= @address.premise %>
+</p>
+
+<p>
+  <strong>Sub premise:</strong>
+  <%= @address.sub_premise %>
+</p>
+
+<%= link_to 'Edit', edit_address_path(@address) %> |
+<%= link_to 'Back', edit_user_registration_path(current_user.address_id) %>
