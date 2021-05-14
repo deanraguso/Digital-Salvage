@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :addresses
   resources :items
   devise_for :users
   root 'pages#index'

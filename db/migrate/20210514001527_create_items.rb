@@ -4,6 +4,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.decimal :price
       t.string :condition
       t.text :description
+      t.integer :seller_id
 
       t.timestamps
     end
