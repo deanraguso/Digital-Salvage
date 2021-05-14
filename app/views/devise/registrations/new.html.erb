@@ -3,9 +3,18 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+  <h3>User</h3>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+  </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email" %>
   </div>
 
   <div class="field">
@@ -20,6 +29,39 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+
+  <h3>Address</h3>
+  <%= fields_for :address do |af| %>
+      <div class="field">
+      <%= af.label :country %>
+      <%= af.text_field :country %>
+    </div>
+
+    <div class="field">
+      <%= af.label :state %>
+      <%= af.text_field :state %>
+    </div>
+
+    <div class="field">
+      <%= af.label :postal_code %>
+      <%= af.text_field :postal_code %>
+    </div>
+
+    <div class="field">
+      <%= af.label :street_address %>
+      <%= af.text_field :street_address %>
+    </div>
+
+    <div class="field">
+      <%= af.label :premise %>
+      <%= af.text_field :premise %>
+    </div>
+
+    <div class="field">
+      <%= af.label :sub_premise %>
+      <%= af.text_field :sub_premise %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
