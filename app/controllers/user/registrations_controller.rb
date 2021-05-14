@@ -40,9 +40,37 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    unless current_user.valid_password?(account_update_params[:current_password])
+      flash.alert = "Error: Password Incorrect!"
+      redirect_to edit_user_registration_path
+      return nil
+    end
+
+    pw_params = params[:user].permit(:current_password, :password, :password_confirmation)
+    # Handle updating password if they added anything.
+    if (current_user.valid_password?(pw_params[:password]) || current_user.valid_password?(pw_params[:password_confirmation]))
+      # Passwords are the same, do nothing.
+    elsif (pw_params[:password] == pw_params[:password_confirmation] && pw_params[:password].length > 6)
+      # Password are different.
+      current_user.password = pw_params[:password]
+      current_user.password_confirmation = pw_params[:password_confirmation]
+      current_user.save!
+      flash.alert = "Success: Password has been changed!"
+    end
+
+    # Update the other variables.
+    user_params = params[:user].except(:current_password, :password, :password_confirmation).permit(:first_name, :last_name, :email)
+    unless current_user.update( first_name: user_params[:first_name],
+                                last_name: user_params[:last_name],
+                                email: user_params[:email])
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: current_user.errors, status: :unprocessable_entity }
+    end
+
+    flash.alert = "Success: Account has been updated!"
+    redirect_to root_path
+  end
 
   # DELETE /resource
   # def destroy

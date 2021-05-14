@@ -40,45 +40,12 @@
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
-
-  <h3>Address</h3>
-  <%= fields_for :address do |af| %>
-      <div class="field">
-      <%= af.label :country %>
-      <%= af.text_field :country, value: current_user.address.country %>
-    </div>
-
-    <div class="field">
-      <%= af.label :state %>
-      <%= af.text_field :state, value: current_user.address.state %>
-    </div>
-
-    <div class="field">
-      <%= af.label :postal_code %>
-      <%= af.text_field :postal_code, value: current_user.address.postal_code %>
-    </div>
-
-    <div class="field">
-      <%= af.label :street_address %>
-      <%= af.text_field :street_address, value: current_user.address.street_address %>
-    </div>
-
-    <div class="field">
-      <%= af.label :premise %>
-      <%= af.text_field :premise, value: current_user.address.premise %>
-    </div>
-
-    <div class="field">
-      <%= af.label :sub_premise %>
-      <%= af.text_field :sub_premise, value: current_user.address.sub_premise %>
-    </div>
-  <% end %>
-
+  
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
 <% end %>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p><br>
+<%= link_to "Update Address", edit_address_path(current_user.address.id) %><br>
 <%= link_to "Back", :back %>
