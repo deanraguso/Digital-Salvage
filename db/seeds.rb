@@ -53,4 +53,4 @@ Constants::PARTS.length.times do |part|
     )
 end
 
-puts "Created: #{Constants::CONDITIONS.length} items in random user accounts."
+puts "Created: #{Constants::PARTS.length} items in random user accounts."
