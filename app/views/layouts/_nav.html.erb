@@ -1,5 +1,6 @@
 <%= link_to "Home", root_path %>
 <% if user_signed_in?%>
+    <%= link_to "Search Items", items_path %>
     <%= link_to "Edit Account", edit_user_registration_path(current_user.address_id) %>
     <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
 <% else %>
