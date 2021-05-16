@@ -1,0 +1,10 @@
+<% unless user_signed_in? %>
+    <%= form_for @message, url: "#" do |f| %>
+        <div> 
+            <%= f.label :content %>
+            <%= f.text_area :content, class: 'form-control' %>
+        </div>
+
+        <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
+    <% end %>
+<% end %>
