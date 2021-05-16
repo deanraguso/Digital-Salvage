@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :addresses
   resources :items
+  get 'item/search(/:query)', to: "items#search", as: "item_search"
   devise_for :users, controllers: {
     registrations: "user/registrations"
   }

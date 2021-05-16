@@ -1,30 +1,18 @@
-FIRST_NAMES = ["Shawn", "Dameon", "Clara", "Ruby", "Joseph", "Darren"]
-LAST_NAMES = ["Stein", "Lloyd", "Fury", "Campbell", "Fisher", "Casperson"]
-COUNTRIES = ["Australia", "United States", "Canada", "China", "Russia", "Italy"]
-STATES = ["Victoria", "Washington", "Montreal", "Wuhan", "Moscow", "Sicily"]
-STREET_ADDRESSES = [
-    "100 Smith Street, Smithville",
-    "200 John Street, Johnville",
-    "300 Anns Way, Mt. Ann",
-    "400 Bank Court, Financeville",
-    "500 White Road, Plain",
-    "600 Redders Lane, Tommatina"
-]
-N = 6
+require 'constants'
 
 6.times.with_index do |index| 
     a = Address.create!(
-        country: COUNTRIES[index],
-        state: STATES[index],
+        country: Constants::COUNTRIES[index],
+        state: Constants::STATES[index],
         postal_code: rand(4000),
-        street_address: STREET_ADDRESSES[index]
+        street_address: Constants::STREET_ADDRESSES[index]
     )
 end
 puts "Created: 6 unique addresses."
 
 12.times.with_index do |index|
-    fn = FIRST_NAMES[rand(N)]
-    ln = LAST_NAMES[rand(N)] 
+    fn = Constants::FIRST_NAMES[rand(Constants::N)]
+    ln = Constants::LAST_NAMES[rand(Constants::N)] 
     tmp = rand(100)
 
     User.create!(first_name: fn, last_name: ln,
@@ -43,3 +31,26 @@ User.create!(first_name: "Sample", last_name: "Account",
     address_id: 1)
 
 puts "Created: main sample account. acc: sample@sample.com pw: password"
+
+Constants::PARTS.length.times do |part|
+    part_desc = Constants::PARTS[part][0]
+    part_desc.slice!("\t")
+    part_desc.slice!("\t")
+    part_type = Constants::PARTS[part][1]
+    part_type.slice!("\t")
+    part_type.slice!("\t")
+    
+    user = User.find_by(id: rand(1..User.all.count))
+    if user.nil? 
+        puts "NILL"
+        next
+    end
+    user.items.create!(
+        price: rand(500),
+        condition: Constants::CONDITIONS[rand(0..Constants::CONDITIONS.length)],
+        description: part_desc,
+        part_type: part_type,
+    )
+end
+
+puts "Created: #{Constants::PARTS.length} items in random user accounts."
