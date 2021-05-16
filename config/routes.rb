@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :messages
+  resources :inboxes
   resources :addresses
   resources :items
   get 'item/search(/:query)', to: "items#search", as: "item_search"
