@@ -7,4 +7,6 @@
 <%= render 'messages/message_form' %>
 
 <!-- Messages -->
-<%= render @inbox.messages %>
+<div id="messages" data-inbox-id="<%=@inbox.id%>">
+    <%= render @inbox.messages %>
+</div>
