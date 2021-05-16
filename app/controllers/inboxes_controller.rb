@@ -8,6 +8,7 @@ class InboxesController < ApplicationController
 
   # GET /inboxes/1 or /inboxes/1.json
   def show
+    @message = Message.new()
   end
 
   # GET /inboxes/new
@@ -59,7 +60,7 @@ class InboxesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inbox
-      @inbox = Inbox.find(params[:id])
+      @inbox = Inbox.includes(:messages).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
