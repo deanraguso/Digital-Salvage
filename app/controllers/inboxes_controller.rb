@@ -20,6 +20,20 @@ class InboxesController < ApplicationController
   def edit
   end
 
+  # POST /message
+  def message_create
+    @message = current_user.messages.new(message_params)
+    respond_to do |format|
+      if @message.save
+        format.html { redirect_to inbox_path(params[:id]), notice: "message was successfully created." }
+        format.json { render :show, status: :created, location: @message }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @message.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /inboxes or /inboxes.json
   def create
     @inbox = Inbox.new(inbox_params)
@@ -66,5 +80,11 @@ class InboxesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def inbox_params
       params.fetch(:inbox, {})
+    end
+
+    private
+
+    def message_params
+        params.require(:message).permit(:content).merge(inbox_id: params[:id])
     end
 end

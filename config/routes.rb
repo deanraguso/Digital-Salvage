@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :inboxes
   resources :addresses
   resources :items
+  post 'inboxes/message_create/:id', to: 'inboxes#message_create', as: "inbox_message_create"
   get 'item/search(/:query)', to: "items#search", as: "item_search"
   devise_for :users, controllers: {
     registrations: "user/registrations"
