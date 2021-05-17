@@ -43,17 +43,26 @@ class InboxesController < ApplicationController
       redirect_to new_inbox_path, notice: "That user does not exist!"
     else
 
-      @inbox.users << [recipient, current_user]
+      # Check that an inbox doesn't already exist.
+      existing = current_user.inboxes.select {|i| i.users.include?(User.find_by(email:recipient.email))}
 
-      respond_to do |format|
-        if @inbox.save
-          format.html { redirect_to @inbox, notice: "Inbox was successfully created." }
-          format.json { render :show, status: :created, location: @inbox }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @inbox.errors, status: :unprocessable_entity }
+      if existing.count > 0
+        redirect_to inbox_path(id: existing[0].id), notice: "Inbox already existed!"
+      else 
+        # If the recipient is real, and there isn't already an inbox.
+
+        @inbox.users << [recipient, current_user]
+        
+        respond_to do |format|
+          if @inbox.save
+            format.html { redirect_to @inbox, notice: "Inbox was successfully created." }
+            format.json { render :show, status: :created, location: @inbox }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @inbox.errors, status: :unprocessable_entity }
+          end
         end
-      end
+      end 
     end
   end
 
