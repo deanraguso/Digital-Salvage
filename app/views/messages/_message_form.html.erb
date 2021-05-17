@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+    <%= form_for @message, url: inbox_message_create_path(params[:id]) do |f| %>
+        <div> 
+            <%= f.label :content %>
+            <%= f.text_area :content, class: 'form-control' %>
+        </div>
+
+        <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
+    <% end %>
+<% end %>

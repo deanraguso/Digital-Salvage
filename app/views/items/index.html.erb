@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Id</th>
       <th>Price</th>
       <th>Condition</th>
       <th>Description</th>
@@ -17,7 +16,6 @@
     <% @items.each do |item| %>
       <% if user_signed_in?  && current_user.items.include?(item) %>
       <tr>
-          <td><%= item.id %></td>
           <td><%= item.price %></td>
           <td><%= item.condition %></td>
           <td><%= item.description %></td>

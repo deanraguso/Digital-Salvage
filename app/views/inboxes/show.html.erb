@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Back', inboxes_path %>
+
+<!-- Input Form -->
+<%= render 'messages/message_form' %>
+
+<!-- Messages -->
+<div id="messages" data-inbox-id="<%=@inbox.id%>">
+    <%= render @inbox.messages %>
+</div>
