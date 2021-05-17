@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.new(item_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @item.save
