@@ -23,14 +23,19 @@ class InboxesController < ApplicationController
 
   # POST /message
   def message_create
-    @message = current_user.messages.new(message_params)
+    @message = Message.new(message_params)
+    @message.user_id = current_user.id
+    
+    p @message
+
+    # @message.save
+    # redirect_to inbox_path(params[:id])
+
     respond_to do |format|
       if @message.save
-        format.html { redirect_to inbox_path(params[:id]), notice: "message was successfully created." }
-        format.json { render :show, status: :created, location: @message }
+        format.html { redirect_to inbox_path(params[:id]), notice: "Message was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        format.html { redirect_to inbox_path(params[:id]), notice: "Message couldn't be created!" }
       end
     end
   end
