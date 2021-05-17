@@ -21,6 +21,7 @@
               <% end %>
             <% end %>
           </td>
+          <td><%= time_ago_in_words(inbox.messages.reduce(0) {|acc, m| m.created_at > acc ? m.created_at : acc}) %> ago</td>
           <td><%= link_to 'Show', inbox %></td>
           <td><%= link_to 'Destroy', inbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
