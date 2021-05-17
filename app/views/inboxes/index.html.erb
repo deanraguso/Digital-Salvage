@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Inboxes</h1>
+<h1>Inbox</h1>
 
 <table>
   <thead>
@@ -12,6 +12,13 @@
   <tbody>
     <% @inboxes.each do |inbox| %>
       <tr>
+        <td>
+          <% inbox.users.each do |u| %>
+            <% if u != current_user%>
+              <%= u.email %>
+            <% end %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', inbox %></td>
         <td><%= link_to 'Edit', edit_inbox_path(inbox) %></td>
         <td><%= link_to 'Destroy', inbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
