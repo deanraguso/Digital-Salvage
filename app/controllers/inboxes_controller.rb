@@ -25,12 +25,6 @@ class InboxesController < ApplicationController
   def message_create
     @message = Message.new(message_params)
     @message.user_id = current_user.id
-    
-    p @message
-
-    # @message.save
-    # redirect_to inbox_path(params[:id])
-
     respond_to do |format|
       if @message.save
         format.html { redirect_to inbox_path(params[:id]), notice: "Message was successfully created." }
@@ -46,20 +40,19 @@ class InboxesController < ApplicationController
 
     recipient = User.find_by(email: params[:inbox][:recipient_email])
     if recipient.nil?
+      redirect_to new_inbox_path, notice: "That user does not exist!"
+    else
+
+      @inbox.users << [recipient, current_user]
+
       respond_to do |format|
-        format.html { redirect_to new_inbox_path, notice: "That user does not exist!" }
-      end
-    end
-
-    @inbox.users << [recipient, current_user]
-
-    respond_to do |format|
-      if @inbox.save
-        format.html { redirect_to @inbox, notice: "Inbox was successfully created." }
-        format.json { render :show, status: :created, location: @inbox }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @inbox.errors, status: :unprocessable_entity }
+        if @inbox.save
+          format.html { redirect_to @inbox, notice: "Inbox was successfully created." }
+          format.json { render :show, status: :created, location: @inbox }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @inbox.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
