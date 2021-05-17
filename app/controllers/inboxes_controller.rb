@@ -1,5 +1,6 @@
 class InboxesController < ApplicationController
   before_action :set_inbox, only: %i[ show edit update destroy ]
+  before_action :authorized_to_view, only: %i[ show edit update destroy ]
 
   # GET /inboxes or /inboxes.json
   def index
@@ -82,9 +83,17 @@ class InboxesController < ApplicationController
       params.fetch(:inbox, {})
     end
 
-    private
-
     def message_params
-        params.require(:message).permit(:content).merge(inbox_id: params[:id])
+      params.require(:message).permit(:content).merge(inbox_id: params[:id])
+    end
+
+    # Action to test whether a user is able to see an inbox.
+    def authorized_to_view
+      unless @inbox.users.include? current_user
+        respond_to do |format|
+          format.html { redirect_to inboxes_path, notice: "You are NOT permitted to access that inbox." }
+          format.json { head :no_content }
+        end
+      end
     end
 end
