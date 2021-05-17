@@ -37,7 +37,16 @@ class InboxesController < ApplicationController
 
   # POST /inboxes or /inboxes.json
   def create
-    @inbox = Inbox.new(inbox_params)
+    @inbox = Inbox.new()
+
+    recipient = User.find_by(email: params[:inbox][:recipient_email])
+    if recipient.nil?
+      respond_to do |format|
+        format.html { redirect_to new_inbox_path, notice: "That user does not exist!" }
+      end
+    end
+
+    @inbox.users << [recipient, current_user]
 
     respond_to do |format|
       if @inbox.save
