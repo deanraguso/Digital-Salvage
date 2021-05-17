@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :inboxes
+  resources :inboxes, except: [:edit, :update]
   resources :addresses
   resources :items
   post 'inboxes/message_create/:id', to: 'inboxes#message_create', as: "inbox_message_create"

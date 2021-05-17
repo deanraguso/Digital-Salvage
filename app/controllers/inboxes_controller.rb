@@ -17,10 +17,6 @@ class InboxesController < ApplicationController
     @inbox = Inbox.new
   end
 
-  # GET /inboxes/1/edit
-  def edit
-  end
-
   # POST /message
   def message_create
     @message = Message.new(message_params)
