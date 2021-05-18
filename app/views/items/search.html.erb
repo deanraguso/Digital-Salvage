@@ -1,46 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+    <p id="notice"><%= notice %></p>
 
-<h1>Search</h1> 
+    <% query = "" %>
+    <% if params.has_key?(:query) %>
+        <% query = params[:query] %>
+    <% end %>
 
-<% query = "" %>
-<% if params.has_key?(:query) %>
-    <% query = params[:query] %>
-<% end %>
+    <div class="container-fluid col-8">
+        <div class="input-group input-group-lg">
+            <input type="text" name="search" id="search", class="form-control", value=<%= query %>>
+            <button onclick='window.searchHandler()', class="btn btn-outline-secondary">Search!</button>
+        </div>
+    </div>
+    <br>
 
-<input type="text" name="search" id="search", value=<%= query %>>
-<button onclick='window.searchHandler()'>Search!</button>
-
-<table>
-  <thead>
-    <tr>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Condition</th>
-        <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @items.count > 0%>
-        <% @items.each do |item| %>
-            <% if (item.description.downcase.include?(query.downcase) ) %>
-                <tr>
-                    <td><%= item.description %></td>
-                    <td><%= item.price %></td>
-                    <td><%= item.condition %></td>
-                    <td><%= link_to 'Show', item %></td>
-
-                    <% if user_signed_in?  && current_user.items.include?(item) %>
-                        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-                        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                    <% end %>
-                </tr>
+    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+        <% if @items.count > 0%>
+            <% @items.each do |item| %>
+                <% if (item.description.downcase.include?(query.downcase) ) %>
+                    
+                    <div class="card mb-3 m-2" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <img src="..." alt="...">
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= item.description %></h5>
+                                    <p class="card-text"><%= item.price %></p>
+                                    <p class="card-text"><%= item.condition %></p>
+                                    <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
+                                    <a href="<%= item_path(item.id) %>" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
             <% end %>
         <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Item', new_item_path %>
+        <br>
+    </div>
+</div>
