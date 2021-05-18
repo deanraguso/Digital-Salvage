@@ -11,7 +11,7 @@
       <% @items.each do |item| %>
         <% if user_signed_in?  && current_user.items.include?(item) %>
           <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
-              <div class="row g-0">
+              <div class="row">
                   <div class="col-md-4">
                       <img src="..." alt="...">
                   </div>
