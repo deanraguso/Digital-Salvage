@@ -1,41 +1,44 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Inbox</h1>
+<div class="container-fluid">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="container col-2">
+    <h1 style="min-width:200px;">My Inbox</h1>
+    <%= link_to 'Create Chat', new_inbox_path, class: "btn btn-primary" %>
+  </div>
+  <br> 
 
-  <tbody>
+  <div class="container-fluid col-11" style="min-width:200px ">
     <% @inboxes.each do |inbox| %>
     <%# Add Admin user here to see all messages! %>
-      <% if inbox.users.include? current_user %>
-        <tr>
-          <td>
-            <% inbox.users.each do |u| %>
-              <% if u != current_user%>
+      <% if inbox.users.include? current_user %>      
+        <div class="row mb-3 border border-dark">
+          <% inbox.users.each do |u| %>
+            <% if u != current_user%>
+              <div class="col-md-6">
                 <%= u.email %>
-              <% end %>
+              </div>
             <% end %>
-          </td>
-          <td>
+          <% end %>
+
+          <div class="col-md-3">
             <% if inbox.messages.count > 0 %>
               <%= time_ago_in_words(inbox.messages.reduce(0) {|acc, m| m.created_at > acc ? m.created_at : acc}) %> ago
             <% else %>
               <%= "No Messages Sent." %>
             <% end %>
-          </td>
-          <td><%= link_to 'Show', inbox %></td>
-          <td><%= link_to 'Destroy', inbox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+          </div>
+          
+          <div class="col-md-1">
+            <%= button_to 'Enter', inbox, class: "btn btn-primary", method: :get %>
+          </div>
+          <div class="col-md-1">
+            <%= button_to 'Destroy', inbox, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          </div>
+        </div>
       <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <br>
 
-<br>
-
-<%= link_to 'New Inbox', new_inbox_path %>
+</div>
