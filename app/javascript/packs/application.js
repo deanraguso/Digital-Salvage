@@ -13,9 +13,11 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import 'bootstrap'
 
 // Customer scripts
 require("packs/search")
+
 
 Rails.start()
 Turbolinks.start()
