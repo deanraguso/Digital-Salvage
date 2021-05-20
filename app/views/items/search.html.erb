@@ -26,12 +26,18 @@
                     
                     <div class="card mb-3 m-2" style="max-width: 540px;">
                         <div class="row g-0">
-                            <div class="col-md-6">
-                                <% item.images.each do |photo| %>
-                                    <%= image_tag(photo, :width => 200) %>
-                                <% end %>
-                            </div>
-                            <div class="col-md-6">
+                            <% if item.images.count > 0 %>
+                                <div class="col-md-6">
+                                    <% item.images.each do |photo| %>
+                                        <%= image_tag(photo, :width => 200) %>
+                                    <% end %>
+                                    </div>  
+                                    <div class="col-md-6"> 
+                                <% else %>
+
+                                    <div class="col-md-12"> 
+
+                                <% end%>
                                 <div class="card-body">
                                     <h5 class="card-title"><%= item.description %></h5>
                                     <p class="card-text"><%= number_to_currency item.price %></p>
