@@ -1,8 +1,12 @@
 <div class="container-fluid justify-content-center">
 
-  <div class="container col-2">
-    <h1 style="min-width:200px;">My Items</h1>
-    <%= button_to 'Sell New Item', new_item_path, class:"btn btn-primary", method: :get %>
+  <div class="row">
+    <div class="container-fluid col-12 col-md-6 text-right">
+      <h1 style="min-width:200px;">My Items</h1>
+    </div>
+    <div class="container-fluid col-12 col-md-5">
+      <%= button_to 'Sell New Item', new_item_path, class:"btn btn-primary float-right", method: :get %>
+    </div>
   </div>
 
   <div class="row row-cols-1 row-cols-md-2 g-3 justify-content-center">
@@ -19,7 +23,7 @@
                     <div class="col-md-6"> 
                   <% else %>
 
-                    <div class="col-md-"> 
+                    <div class="col-md-12"> 
 
                   <% end%>
                       <div class="card-body">
