@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'orders/index'
-  get 'orders/show'
+  get 'orders/show/:id', to: "orders#show", as: "orders_show"
   get 'orders/new'
   get 'orders/create'
 
