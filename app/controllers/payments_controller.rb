@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_action :item_check, only: [:success, :cancelled]
+  before_action :item_check, only: [:success]
 
   def success
     @item = Item.find(params[:item_id])
@@ -10,9 +10,6 @@ class PaymentsController < ApplicationController
   end
 
   def failure
-  end
-
-  def cancelled
   end
 
   protected

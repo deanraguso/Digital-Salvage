@@ -1,18 +1,40 @@
 <div class="container-fluid">
     <h1 style="text-align:center">Orders</h1>
-    <% @orders.each do |order| %>
-        <strong><%= order.item.description %></strong>
-        <br>
-        <% order.item.images.each do |photo| %>
-            <%= image_tag(photo, :width => 200) %>
+
+    <div class="row row-cols-1 row-cols-md-2 g-3 justify-content-center">
+        <% @orders.each do |order| %>
+            <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
+                <div class="row">
+
+                    <% if order.item.images.count > 0 %>
+                        <div class="col-md-6">
+                        <% order.item.images.each do |photo| %>
+                            <%= image_tag(photo, :width => 200) %>
+                        <% end %>
+                        </div>  
+                        <div class="col-md-6"> 
+                    <% else %>
+
+                        <div class="col-md-"> 
+
+                    <% end%>
+                        <div class="card-body">
+                            <strong><%= order.item.description %></strong>
+                            <br>
+                            <br>
+                            <strong>Seller: </strong>
+                            <%= order.item.user.email %>
+                            <br>
+                            <strong>Date of Purchase: </strong><%= order.created_at %>
+                            <br>
+                            <%= link_to "Details", orders_show_path(order.id), class: "btn btn-primary" %>
+                            <br><br>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
         <% end %>
-        <br>
-        <strong>Seller: </strong>
-        <%= order.item.user.email %>
-        <br>
-        Bought <%= time_ago_in_words order.created_at %> ago.
-        <br>
-        <%= link_to "Details", orders_show_path(order.id) %>
-        <br><br>
-    <% end %>
+    </div>
 </div>

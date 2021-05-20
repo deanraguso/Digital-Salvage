@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid col-11 bg-dark text-white rounded">
     <h1>Order: <%= @order.item.description %> </h1>
     <h2>Seller: <%= @order.item.user.email %></h2>
     <br>
@@ -6,13 +6,14 @@
         <%= image_tag(photo, :width => 200) %>
     <% end %>
     <br>
-    Price: <%= number_to_currency(@order.item.price) %>
     <br>
-    Condition: <%= @order.item.condition %>
+    <strong>Price: </strong><%= number_to_currency(@order.item.price) %>
     <br>
-    Bought <%= time_ago_in_words @order.created_at %> ago.
+    <strong>Condition: </strong><%= @order.item.condition %>
     <br>
-    <%= link_to "Message Seller",inboxes_path(inbox: {recipient_email: @order.item.user.email}), method: :post %>
+    <strong>Date of Purchase: </strong><%= @order.created_at %>
     <br>
-    <%= link_to 'Back', :back %>
+    <%= link_to "Message Seller",inboxes_path(inbox: {recipient_email: @order.item.user.email}), method: :post , class: "btn btn-primary" %>
+    <br>
+    <%= link_to 'Back', :back, class: "btn btn-dark" %>
 </div>
