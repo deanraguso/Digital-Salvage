@@ -7,6 +7,7 @@
             <%= image_tag(photo, :width => 200) %>
         <% end %>
         <br>
+        <strong>Seller: </strong>
         <%= order.item.user.email %>
         <br>
         Bought <%= time_ago_in_words order.created_at %> ago.
