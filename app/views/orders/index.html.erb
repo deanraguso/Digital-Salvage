@@ -1,0 +1,14 @@
+<h1>Orders</h1>
+
+<% @orders.each do |order| %>
+    <strong><%= order.item.description %></strong>
+    <br>
+    <% order.item.images.each do |photo| %>
+        <%= image_tag(photo, :width => 200) %>
+    <% end %>
+    <br>
+    <%= order.item.user.email %>
+    <br>
+    Bought <%= time_ago_in_words order.created_at %> ago.
+    <br><br>
+<% end %>
