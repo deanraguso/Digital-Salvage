@@ -13,6 +13,29 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+
+    @item = Item.find(params[:id])
+
+    if(user_signed_in?)
+      @session = Stripe::Checkout::Session.create(
+        success_url: "#{payments_success_url}?item_id=#{@item.id}",
+        cancel_url: "#{payments_failure_url}",
+        customer_email: current_user.email,
+        payment_method_types: ['card'],
+        line_items: [{
+          # For metered billing, do not pass quantity
+          currency: 'AUD',
+          quantity: 1,
+          name:@item.description,
+          amount: @item.price.to_i*100,
+        }],
+        payment_intent_data: {
+          metadata: {
+            dish_id: @item.id
+          }
+        }
+      )
+    end
   end
 
   # GET /items/new
@@ -69,7 +92,7 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:id, :price, :condition, :description, :seller_id, :part_type, :image)
+      params.require(:item).permit(:id, :price, :condition, :description, :seller_id, :part_type, images: [])
     end
 
     # Only the item owner may delete or edit an item.

@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <h1 style="text-align:center">Orders</h1>
+    <% @orders.each do |order| %>
+        <strong><%= order.item.description %></strong>
+        <br>
+        <% order.item.images.each do |photo| %>
+            <%= image_tag(photo, :width => 200) %>
+        <% end %>
+        <br>
+        <strong>Seller: </strong>
+        <%= order.item.user.email %>
+        <br>
+        Bought <%= time_ago_in_words order.created_at %> ago.
+        <br>
+        <%= link_to "Details", orders_show_path(order.id) %>
+        <br><br>
+    <% end %>
+</div>

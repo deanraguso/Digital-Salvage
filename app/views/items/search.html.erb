@@ -1,6 +1,4 @@
 <div class="container-fluid">
-    <p id="notice"><%= notice %></p>
-
     <% query = "" %>
     <% if params.has_key?(:query) %>
         <% query = params[:query] %>
@@ -14,21 +12,24 @@
     </div>
     <br>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+    <div class="row row-cols-1 row-cols-md-1 g-4 justify-content-center">
         <% if @items.count > 0%>
             <% @items.each do |item| %>
                 <% if (item.description.downcase.include?(query.downcase) ) %>
                     
                     <div class="card mb-3 m-2" style="max-width: 540px;">
                         <div class="row g-0">
-                            <div class="col-md-3">
-                                <img src="..." alt="...">
+                            <div class="col-md-6">
+                                <% item.images.each do |photo| %>
+                                    <%= image_tag(photo, :width => 200) %>
+                                <% end %>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-6">
                                 <div class="card-body">
                                     <h5 class="card-title"><%= item.description %></h5>
                                     <p class="card-text"><%= item.price %></p>
                                     <p class="card-text"><%= item.condition %></p>
+                                    <p class="card-text"><%= item.status ? "Available" : "Sold" %></p>
                                     <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
                                     <a href="<%= item_path(item.id) %>" class="stretched-link"></a>
                                 </div>
