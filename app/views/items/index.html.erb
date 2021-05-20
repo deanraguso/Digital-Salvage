@@ -10,13 +10,18 @@
         <% if user_signed_in?  && current_user.items.include?(item) %>
           <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
               <div class="row">
-                  <div class="col-md-4">
-                      <img src="..." alt="...">
+                  <div class="col-md-6">
+                      <% item.images.each do |photo| %>
+                          <%= image_tag(photo, :width => 200) %>
+                      <% end %>
+                      <% if item.images.count == 0 %>
+                        <h4>No Image Available</h4>
+                      <% end %>
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-md-6">
                       <div class="card-body">
                           <h5 class="card-title"><%= item.description %></h5>
-                          <p class="card-text"><%= item.price %></p>
+                          <p class="card-text"><%= number_to_currency item.price %></p>
                           <p class="card-text"><%= item.condition %></p>
                           <p class="card-text"><%= item.status ? "Available" : "Sold" %></p>
                           <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
