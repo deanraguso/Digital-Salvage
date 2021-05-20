@@ -18,6 +18,7 @@
                           <h5 class="card-title"><%= item.description %></h5>
                           <p class="card-text"><%= item.price %></p>
                           <p class="card-text"><%= item.condition %></p>
+                          <p class="card-text"><%= item.status ? "Available" : "Sold" %></p>
                           <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
                           <%= link_to 'View', item , class: "btn btn-primary"%>
                           <%= link_to 'Edit', edit_item_path(item), class:"btn btn-warning" %>

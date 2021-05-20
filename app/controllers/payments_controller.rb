@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
     @order = Order.create!(status:1, user_id: current_user.id, item_id: params[:item_id])
     
     # Set item status to sold!
-    @item.update(status: false)
+    @item.update!(status: false)
   end
 
   def failure

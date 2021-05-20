@@ -24,21 +24,33 @@
   <%= @item.description %>
 </p>
 
+<p>
+  <strong>Availability: </strong>
+  <%= @item.status ? "Available" : "Sold" %>
+</p>
+
 <% if user_signed_in?  && current_user.items.include?(@item) %>
   <br>
   <%= link_to 'Edit', edit_item_path(@item) %> |
 <% elsif user_signed_in?%>
-  <button type="button" data-stripe="payment">Purchase</button>
-  <script src="https://js.stripe.com/v3/"></script>
-  <script>
-    document.querySelector("[data-stripe='payment']").addEventListener("click", ()=>{
-      const stripe = Stripe("<%= Rails.application.credentials.dig(:stripe, :public_key) %>");
 
-      stripe.redirectToCheckout({
-        sessionId: "<%= @session.id %>"
+  <% if @item.status %>
+    <button type="button" data-stripe="payment">Purchase</button>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      document.querySelector("[data-stripe='payment']").addEventListener("click", ()=>{
+        console.log("Item.status == <%= @item.status %>: Cannot Proceed")
+        if("<%= @item.status %>" == "true"){
+          const stripe = Stripe("<%= Rails.application.credentials.dig(:stripe, :public_key) %>");
+
+          stripe.redirectToCheckout({
+            sessionId: "<%= @session.id %>"
+          });
+        }
       });
-    });
-  </script>
+    </script>
+  <% end %>
+
   <%= link_to "Message Seller",inboxes_path(inbox: {recipient_email: @item.user.email}), method: :post %>
 <% end %>
 

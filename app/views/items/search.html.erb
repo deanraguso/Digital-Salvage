@@ -29,6 +29,7 @@
                                     <h5 class="card-title"><%= item.description %></h5>
                                     <p class="card-text"><%= item.price %></p>
                                     <p class="card-text"><%= item.condition %></p>
+                                    <p class="card-text"><%= item.status ? "Available" : "Sold" %></p>
                                     <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
                                     <a href="<%= item_path(item.id) %>" class="stretched-link"></a>
                                 </div>
