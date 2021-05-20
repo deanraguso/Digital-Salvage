@@ -10,9 +10,13 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <div class="container-fluid bg-secondary m-0 p-0 b-0" style="min-height:100vh; height=100%">
   <body>
-    <%= render "layouts/nav" %>
-    <p class="notice"><%= notice %></p>
-    <%= yield %>
+    
+      <%= render "layouts/nav" %>
+      <p class="notice p-0 m-0"><%= notice %></p>
+      <%= yield %>
+    
   </body>
+  </div>
 </html>

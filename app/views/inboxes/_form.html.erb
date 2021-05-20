@@ -1,22 +1,27 @@
-<%= form_with(model: inbox) do |form| %>
-  <% if inbox.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(inbox.errors.count, "error") %> prohibited this inbox from being saved:</h2>
+<div class="container-fluid justify-content-center">
+  <div class="container-fluid col-10 col-md-6 bg-white rounded p-2 text-center">
+    <%= form_with(model: inbox) do |form| %>
+      <% if inbox.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(inbox.errors.count, "error") %> prohibited this inbox from being saved:</h2>
 
-      <ul>
-        <% inbox.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% inbox.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="field">
-    <%= form.label :recipient_email %>
-    <%= form.text_field :recipient_email %>
+      <div class="field mb-3">
+        <%= form.label :recipient_email, class:"form-label" %>
+        <%= form.text_field :recipient_email, class: "form-control" %>
+      </div>
+
+      <div class="actions mb-3">
+        <%= form.submit class: "btn btn-success" %>
+      </div>
+    <% end %>
+    <%= link_to 'Back', inboxes_path, class: "btn btn-dark text-white mb-3" %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

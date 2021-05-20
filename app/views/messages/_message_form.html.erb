@@ -1,10 +1,18 @@
 <% if user_signed_in? %>
-    <%= form_for @message, url: inbox_message_create_path(params[:id]) do |f| %>
-        <div> 
-            <%= f.label :content %>
-            <%= f.text_area :content, class: 'form-control' %>
-        </div>
+    <div class="container-fluid col-10" style="max-width:1000px">
+        <%= form_for @message, url: inbox_message_create_path(params[:id]) do |f| %>
+            <div> 
+                <%= f.text_area :content, class: 'form-control', autofocus: true %>
+            </div>
 
-        <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
-    <% end %>
+            <%= f.submit 'Post Comment', class: 'btn btn-primary float-right' %>
+            <script>
+                document.getElementById("message_content").addEventListener("keyup", function(e) {
+                    if (e.keyCode === 13) {
+                        document.getElementsByClassName("btn btn-primary")[0].click();
+                    }
+                })
+            </script>
+        <% end %>
+    </div>
 <% end %>

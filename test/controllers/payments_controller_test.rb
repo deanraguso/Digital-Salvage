@@ -10,9 +10,4 @@ class PaymentsControllerTest < ActionDispatch::IntegrationTest
     get payments_failure_url
     assert_response :success
   end
-
-  test "should get cancelled" do
-    get payments_cancelled_url
-    assert_response :success
-  end
 end

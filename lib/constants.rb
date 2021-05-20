@@ -13,6 +13,7 @@ module Constants
     ]
     N = 6
     # Item constants
+    PART_TYPES = ["CPU", "GPU", "RAM", "Motherboard", "Power Supply", "HDD", "SSD"]
     CONDITIONS = ["Mint Condition", "Near New Condition", "Great Condition", "Refurbished", "Working Condition", "Okay Condition", "Not Working"]
     PARTS = [
         [	'	Intel Core i9-10900K Processor	'	,	'	CPU	'	]	,

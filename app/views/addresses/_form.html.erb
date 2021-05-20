@@ -11,37 +11,37 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :country %>
-    <%= form.text_field :country %>
+  <div class="field mb-3">
+    <%= form.label :country, class: "form-label"  %>
+    <%= form.text_field :country, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state %>
+  <div class="field mb-3">
+    <%= form.label :state, class: "form-label"  %>
+    <%= form.text_field :state, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :postal_code %>
-    <%= form.text_field :postal_code %>
+  <div class="field mb-3">
+    <%= form.label :postal_code, class: "form-label"  %>
+    <%= form.text_field :postal_code, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :street_address %>
-    <%= form.text_field :street_address %>
+  <div class="field mb-3">
+    <%= form.label :street_address, class: "form-label"  %>
+    <%= form.text_field :street_address, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :premise %>
-    <%= form.text_field :premise %>
+  <div class="field mb-3">
+    <%= form.label :premise, class: "form-label"  %>
+    <%= form.text_field :premise, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :sub_premise %>
-    <%= form.text_field :sub_premise %>
+  <div class="field mb-3">
+    <%= form.label :sub_premise, class: "form-label"  %>
+    <%= form.text_field :sub_premise, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mb-3">
+    <%= form.submit class: "btn btn-success" %>
   </div>
 <% end %>

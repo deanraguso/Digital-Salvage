@@ -1,8 +1,12 @@
 <div class="container-fluid">
 
-  <div class="container col-2">
-    <h1 style="min-width:200px;">My Inbox</h1>
-    <%= link_to 'Create Chat', new_inbox_path, class: "btn btn-primary" %>
+  <div class="row">
+    <div class="container-fluid mb-3 p-0 col-6 col-mb-6Z text-right">
+      <h1>My Inbox</h1>
+    </div>
+    <div class="container-fluid col-5 p-2">
+      <%= link_to 'Create Chat', new_inbox_path, class: "btn btn-success float-right" %>
+    </div>
   </div>
   <br> 
 
@@ -10,28 +14,25 @@
     <% @inboxes.each do |inbox| %>
     <%# Add Admin user here to see all messages! %>
       <% if inbox.users.include? current_user %>      
-        <div class="row mb-3 border border-dark">
+        <div class="container-fluid row mb-3 p-0 bg-white rounded">
           <% inbox.users.each do |u| %>
             <% if u != current_user%>
-              <div class="col-md-6">
+              <div class="col-md-6 col-12 pt-2">
                 <%= u.email %>
+                <a href="<%= inboxes_url %>/<%= inbox.id %>" class="stretched-link"></a>
               </div>
             <% end %>
           <% end %>
-
-          <div class="col-md-3">
+          <div class="col-6 col-md-5 pt-2">
             <% if inbox.messages.count > 0 %>
               <%= time_ago_in_words(inbox.messages.reduce(0) {|acc, m| m.created_at > acc ? m.created_at : acc}) %> ago
             <% else %>
               <%= "No Messages Sent." %>
             <% end %>
+            <a href="<%= inboxes_url %>/<%= inbox.id %>" class="stretched-link"></a>
           </div>
-          
-          <div class="col-md-1">
-            <%= button_to 'Enter', inbox, class: "btn btn-primary", method: :get %>
-          </div>
-          <div class="col-md-1">
-            <%= button_to 'Destroy', inbox, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          <div class="col-6 col-md-1 p-0">
+            <%= button_to 'Destroy', inbox, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger float-right" %>
           </div>
         </div>
       <% end %>
