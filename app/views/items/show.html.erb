@@ -28,6 +28,17 @@
   <br>
   <%= link_to 'Edit', edit_item_path(@item) %> |
 <% elsif user_signed_in?%>
+  <button type="button" data-stripe="payment">Purchase</button>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    document.querySelector("[data-stripe='payment']").addEventListener("click", ()=>{
+      const stripe = Stripe("<%= Rails.application.credentials.dig(:stripe, :public_key) %>");
+
+      stripe.redirectToCheckout({
+        sessionId: "<%= @session.id %>"
+      });
+    });
+  </script>
   <%= link_to "Message Seller",inboxes_path(inbox: {recipient_email: @item.user.email}), method: :post %>
 <% end %>
 

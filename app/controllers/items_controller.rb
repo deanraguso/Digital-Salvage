@@ -13,6 +13,29 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+
+    @item = Item.find(params[:id])
+
+    if(user_signed_in?)
+      @session = Stripe::Checkout::Session.create(
+        success_url: "#{root_url}",
+        cancel_url: "#{root_url}",
+        customer_email: current_user.email,
+        payment_method_types: ['card'],
+        line_items: [{
+          # For metered billing, do not pass quantity
+          currency: 'AUD',
+          quantity: 1,
+          name:@item.description,
+          amount: @item.price.to_i*100,
+        }],
+        payment_intent_data: {
+          metadata: {
+            dish_id: @item.id
+          }
+        }
+      )
+    end
   end
 
   # GET /items/new
@@ -41,9 +64,6 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
-    "herhehrherhehrehherherhehrherherherhehrherhehrehr"
-    p @item
-
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: "Item was successfully updated." }
