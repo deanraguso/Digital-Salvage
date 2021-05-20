@@ -5,6 +5,12 @@
   <%= @item.user.email %>
 </p>
 
+<div>
+  <% @item.images.each do |photo| %>
+    <%= image_tag(photo, :width => 200) %>
+  <% end %>
+</div>
+
 <p>
   <strong>Price:</strong>
   <%= @item.price %>

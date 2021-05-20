@@ -41,6 +41,9 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
+    "herhehrherhehrehherherhehrherherherhehrherhehrehr"
+    p @item
+
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: "Item was successfully updated." }
@@ -69,7 +72,7 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:id, :price, :condition, :description, :seller_id, :part_type, :image)
+      params.require(:item).permit(:id, :price, :condition, :description, :seller_id, :part_type, images: [])
     end
 
     # Only the item owner may delete or edit an item.
