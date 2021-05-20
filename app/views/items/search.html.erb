@@ -4,7 +4,7 @@
         <% query = params[:query] %>
     <% end %>
 
-    <div class="container-fluid col-8" style="max-width:600px">
+    <div class="container-fluid col-8 p-2" style="max-width:600px">
         <div class="input-group input-group-lg bg-white rounded border">
             <input type="text" name="search" id="search" class="form-control border-0 text"  value=<%= query %>>
             <button id="searchButton" onclick='window.searchHandler()' class="btn btn-outline-secondary bg-dark text-white">Search!</button>
