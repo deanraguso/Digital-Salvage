@@ -13,5 +13,6 @@
     Bought <%= time_ago_in_words @order.created_at %> ago.
     <br>
     <%= link_to "Message Seller",inboxes_path(inbox: {recipient_email: @order.item.user.email}), method: :post %>
-
+    <br>
+    <%= link_to 'Back', :back %>
 </div>
