@@ -18,8 +18,8 @@ class ItemsController < ApplicationController
 
     if(user_signed_in?)
       @session = Stripe::Checkout::Session.create(
-        success_url: "#{root_url}",
-        cancel_url: "#{root_url}",
+        success_url: "#{payments_success_url}?item_id=#{@item.id}",
+        cancel_url: "#{payments_cancelled_url}",
         customer_email: current_user.email,
         payment_method_types: ['card'],
         line_items: [{

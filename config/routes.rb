@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'payments/success'
+  get 'payments/failure'
+  get 'payments/cancelled'
   get 'orders/index'
   get 'orders/show/:id', to: "orders#show", as: "orders_show"
   get 'orders/new'
