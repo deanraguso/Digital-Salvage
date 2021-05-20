@@ -40,7 +40,9 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
+    require 'constants'
     @item = Item.new
+    @part_types = Constants::PART_TYPES
   end
 
   # GET /items/1/edit

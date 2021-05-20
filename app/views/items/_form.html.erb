@@ -1,36 +1,49 @@
-<%= form_with(model: item) do |form| %>
-  <% if item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<div class="container col-6 text-end bg-white p-2 rounded">
+  <%= form_with(model: item) do |form| %>
 
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <% if item.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+        <ul>
+          <% item.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field mb-3">
+      <%= form.label :price , class: "form-label" %>
+      <%= form.text_field :price, class: "form-control text-dark" %>
     </div>
+
+    <div class="field mb-3">
+      <%= form.label :condition, class: "form-label" %>
+      <%= form.text_field :condition, class: "form-control text-dark" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.label :description, class: "form-label" %>
+      <%= form.text_area :description, class: "form-control text-dark" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.label :part_type, class: "form-label" %>
+      <%= form.select :part_type, @part_types, class: "form-control text-dark" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.file_field :images, accept: 'image/png,image/jpeg', multiple: true , class: "btn btn-dark" %>
+    </div>
+  
+    <div class="actions">
+      <%= form.submit class: "btn btn-success mw-100" %>
+      <div class="float-right">
+        <%= link_to 'Back', items_path , class: "btn btn-danger" %>
+      </div>
+    </div>
+
   <% end %>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :condition %>
-    <%= form.text_field :condition %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.file_field :images, accept: 'image/png,image/jpeg', multiple: true %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+  
+</div>
