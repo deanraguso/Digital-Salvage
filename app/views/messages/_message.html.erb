@@ -1,5 +1,17 @@
-<br>
-<%= message.user.email %>
-<%= message.content %>
-<%= time_ago_in_words(message.created_at) %> ago
-<br>
+<% if message.user == current_user %>
+    <div class="container-fluid row p-1 justify-content-end float-right" style="max-width: 900px">
+        <div class="container-fluid m-0 bg-primary text-white rounded">
+            <strong><%= message.user.email %>: </strong>
+            <%= message.content %>
+            <p style="display:inline-block; width:200px; text-align:end" class="float-right"><%= time_ago_in_words(message.created_at) %> ago</p>
+        </div>
+    </div>
+<% else %>
+    <div class="container-fluid row p-1 justify-content-start" style="max-width: 900px"s>
+        <div class="container-fluid  m-0 bg-dark text-white rounded">
+            <strong><%= message.user.email %>: </strong>
+            <%= message.content %>
+            <p style="display:inline-block; width:200px; text-align:end" class="float-right"><%= time_ago_in_words(message.created_at) %> ago</p>
+        </div>
+    </div>
+<% end %>

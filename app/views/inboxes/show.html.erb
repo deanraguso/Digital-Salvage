@@ -1,9 +1,12 @@
-<%= link_to 'Back', inboxes_path %>
+<div class="container-fluid p-3">
+    <%= link_to 'Back', inboxes_path , class: "float-right btn btn-danger m-1" %>
 
-<!-- Input Form -->
-<%= render 'messages/message_form' %>
+    <!-- Input Form -->
+    <%= render 'messages/message_form' %>
+    <br>
 
-<!-- Messages -->
-<div id="messages" data-inbox-id="<%=@inbox.id%>">
-    <%= render @inbox.messages %>
+    <!-- Messages -->
+    <div id="messages" data-inbox-id="<%=@inbox.id%>" class="container-fluid col-md-11 col-11 pt-4 m-0">
+        <%= render @inbox.messages.sort_by {|m| -m.created_at.to_i} %>
+    </div>
 </div>
