@@ -12,5 +12,6 @@ module UserHelper
             redirect_to edit_user_registration_path
             return nil
         end
+        return true
     end
 end

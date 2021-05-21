@@ -15,7 +15,6 @@ module ApplicationHelper
     def save_redirector saved, object, message
         respond_to do |format|
           if saved
-            format.html { redirect_to object, notice: message }
             format.json { render :show, status: :ok, location: object }
           else
             format.html { render :edit, status: :unprocessable_entity }
