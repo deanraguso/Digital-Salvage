@@ -15,8 +15,12 @@ class AddressesController < ApplicationController
 
   # PATCH/PUT /addresses/1 or /addresses/1.json
   def update
-    saved = @address.update!(address_params)
-    save_redirector saved, @address, "Address was successfully updated."
+    begin
+      saved = @address.update!(address_params)
+      save_redirector saved, @address, "Address was successfully updated."
+    rescue ActiveRecord::RecordInvalid => e
+      redirect_to edit_address_path(@address), notice: e.message
+    end
   end
 
   # DELETE /addresses/1 or /addresses/1.json
