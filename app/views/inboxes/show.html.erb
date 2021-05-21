@@ -8,7 +8,7 @@
     <!-- Messages -->
     <div id="messages" data-inbox-id="<%=@inbox.id%>" class="container-fluid col-md-11 col-11 pt-4 m-0">
         <%# Turn this into a manual loop, calling the partial with a local variable of email %>
-        <% @inbox.messages.includes(:user).sort {|m| -m.created_at.to_i}.each do |m| %>
+        <% @inbox.messages.includes(:user).sort {|m| m.created_at.to_i}.each do |m| %>
             <%= render partial: 'messages/message', locals: {message: m} %>
         <% end %>
     </div>

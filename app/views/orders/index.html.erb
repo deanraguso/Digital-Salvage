@@ -6,7 +6,7 @@
             <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
                 <div class="row">
 
-                    <% if order.item.images.count > 0 %>
+                    <% unless order.item.images[0].nil? %>
                         <div class="col-md-6">
                         <% order.item.images.each do |photo| %>
                             <%= image_tag(photo, :width => 200) %>
