@@ -20,13 +20,13 @@
     <br>
 
     <div class="row row-cols-1 row-cols-md-1 g-4 justify-content-center">
-        <% if @items.count > 0%>
+        <% if @items.count > 0 %>
             <% @items.each do |item| %>
                 <% if (item.description.downcase.include?(query.downcase) ) %>
                     
                     <div class="card mb-3 m-2" style="max-width: 540px;">
                         <div class="row g-0">
-                            <% if item.images.count > 0 %>
+                            <% unless item.images[0].nil?  %>
                                 <div class="col-md-6">
                                     <% item.images.each do |photo| %>
                                         <%= image_tag(photo, :width => 200) %>

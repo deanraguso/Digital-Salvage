@@ -1,39 +1,25 @@
 class AddressesController < ApplicationController
+  include ApplicationConcern
   before_action :set_address, only: %i[ show edit update destroy ]
-  before_action :authorized_user?, excpet: 
-
+  before_action :authorized_user?
+  before_action :address_inhabitant?
+  
   # GET /addresses/1 or /addresses/1.json
   def show
+    redirect_to edit_address_path(@address)
   end
 
   # GET /addresses/1/edit
   def edit
   end
 
-  def create
-    @address = Address.new(address_params)
-
-    respond_to do |format|
-      if @address.save
-        format.html { redirect_to @address, notice: "Address was successfully created." }
-        format.json { render :show, status: :created, location: @address }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /addresses/1 or /addresses/1.json
   def update
-    respond_to do |format|
-      if @address.update(address_params)
-        format.html { redirect_to @address, notice: "Address was successfully updated." }
-        format.json { render :show, status: :ok, location: @address }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
-      end
+    begin
+      saved = @address.update!(address_params)
+      save_redirector saved, @address, "Address was successfully updated."
+    rescue ActiveRecord::RecordInvalid => e
+      redirect_to edit_address_path(@address), notice: e.message
     end
   end
 
@@ -55,17 +41,25 @@ class AddressesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def address_params
       params.require(:address).permit(:country, :state, :postal_code, :street_address, :premise, :sub_premise)
+    end    
+
+    # If an object get's saved correctly, redirects to that objects show with a message.
+    def save_redirector saved, object, message
+      respond_to do |format|
+        if saved
+          format.html { redirect_to object, notice: message }
+          format.json { render :show, status: :ok, location: object }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: object.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
-    # Only an authorized user may view or edit their own address
-    def authorized_user?
-      unless(user_signed_in?)
-        # A user who hasn't signed in, shouldn't be able to view or interact with addresses.
-        redirect_to root_path
-      end
-      # Ensure the current_user is only interacting with their own address.
+    # Redirects if user isn't an inhabitant of the current address. Assumes user is signed id!
+    def address_inhabitant?
       unless(@address.id == current_user.address_id)
-        redirect_to root_path
+        redirect_to root_path, notice: "You are not authorized to access that address!"
       end
     end
 end

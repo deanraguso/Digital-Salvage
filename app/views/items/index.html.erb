@@ -11,35 +11,33 @@
 
   <div class="row row-cols-1 row-cols-md-2 g-3 justify-content-center">
       <% @items.each do |item| %>
-        <% if user_signed_in?  && current_user.items.include?(item) %>
-          <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
-              <div class="row">
-                  <% if item.images.count > 0 %>
-                    <div class="col-md-6">
-                      <% item.images.each do |photo| %>
-                        <%= image_tag(photo, :width => 200) %>
-                      <% end %>
-                    </div>  
-                    <div class="col-md-6"> 
-                  <% else %>
+        <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
+          <div class="row">
+              <% unless item.images[0].nil? %>
+                <div class="col-md-6">
+                  <% item.images.each do |photo| %>
+                    <%= image_tag(photo, :width => 200) %>
+                  <% end %>
+                </div>  
+                <div class="col-md-6"> 
+              <% else %>
 
-                    <div class="col-md-12"> 
+                <div class="col-md-12"> 
 
-                  <% end%>
-                      <div class="card-body">
-                          <h5 class="card-title"><%= item.description %></h5>
-                          <p class="card-text"><%= number_to_currency item.price %></p>
-                          <p class="card-text"><%= item.condition %></p>
-                          <p class="card-text"><%= item.status ? "Available" : "Sold" %></p>
-                          <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
-                          <%= link_to 'View', item , class: "btn btn-primary"%>
-                          <%= link_to 'Edit', edit_item_path(item), class:"btn btn-warning" %>
-                          <%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
-                      </div>
+              <% end%>
+                  <div class="card-body">
+                      <h5 class="card-title"><%= item.description %></h5>
+                      <p class="card-text"><%= number_to_currency item.price %></p>
+                      <p class="card-text"><%= item.condition %></p>
+                      <p class="card-text"><%= item.status ? "Available" : "Sold" %></p>
+                      <p class="card-text"><small class="text-muted">Posted <%= time_ago_in_words(item.created_at) %> ago.</small></p>
+                      <%= link_to 'View', item , class: "btn btn-primary"%>
+                      <%= link_to 'Edit', edit_item_path(item), class:"btn btn-warning" %>
+                      <%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
                   </div>
               </div>
           </div>
-        <% end %>
+        </div>
       <% end %>
   </div>
 </div>

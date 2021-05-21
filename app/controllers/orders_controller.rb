@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :user_check
 
   def index
-    @orders = current_user.orders.all.sort_by { |o| -o.created_at.to_i }
+    @orders = current_user.orders.all.includes(:item, :user, item: [:user, images_attachments: :blob], ).sort_by { |o| -o.created_at.to_i }
   end
 
   def show

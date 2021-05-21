@@ -4,11 +4,11 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
+    @items = current_user.items.all.includes(images_attachments: :blob)
   end
 
   def search
-    @items = Item.all
+    @items = Item.all.includes(images_attachments: :blob)
   end
 
   # GET /items/1 or /items/1.json
@@ -53,8 +53,9 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
+    @part_types = Constants::PART_TYPES
     @item = Item.new(item_params.merge(user_id: current_user.id))
-
+    
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: "Item was successfully created." }
@@ -68,6 +69,7 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
+    @part_types = Constants::PART_TYPES
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: "Item was successfully updated." }
