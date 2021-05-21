@@ -3,7 +3,7 @@
 class User::RegistrationsController < Devise::RegistrationsController
   include UserHelper
   # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -36,7 +36,7 @@ class User::RegistrationsController < Devise::RegistrationsController
   def update
     if correct_password_check account_update_params[:current_password]
     
-      pw_params = params[:user].permit(:current_password, :password, :password_confirmation)
+      pw_params = params[:user].permit(:current_password, :password, :password_confirmation, :first_name, :last_name)
       # Handle updating password if they added anything.
       if (current_user.valid_password?(pw_params[:password]) || current_user.valid_password?(pw_params[:password_confirmation]))
         # Passwords are the same, do nothing.
@@ -48,11 +48,9 @@ class User::RegistrationsController < Devise::RegistrationsController
         flash.alert = "Success: Password has been changed!"
       end
 
-      # Update the other variables.
+      
       user_params = params[:user].except(:current_password, :password, :password_confirmation).permit(:first_name, :last_name, :email)
-      unless current_user.update( first_name: user_params[:first_name],
-                                  last_name: user_params[:last_name],
-                                  email: user_params[:email])
+      unless current_user.update!( user_params )
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: current_user.errors, status: :unprocessable_entity }
       end
@@ -83,9 +81,9 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name])
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
