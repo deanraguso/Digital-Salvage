@@ -4,6 +4,7 @@ class AddressesController < ApplicationController
 
   # GET /addresses/1 or /addresses/1.json
   def show
+    redirect_to edit_address_path(@address)
   end
 
   # GET /addresses/1/edit
@@ -12,7 +13,6 @@ class AddressesController < ApplicationController
 
   def create
     @address = Address.new(address_params)
-
     save_responder "Address was successfully created."
   end
 
