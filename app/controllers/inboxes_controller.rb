@@ -4,7 +4,7 @@ class InboxesController < ApplicationController
 
   # GET /inboxes or /inboxes.json
   def index
-    @inboxes = Inbox.all
+    @inboxes = current_user.inboxes.all.includes(:users, :messages)
   end
 
   # GET /inboxes/1 or /inboxes/1.json
@@ -87,7 +87,7 @@ class InboxesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inbox
-      @inbox = Inbox.includes(:messages).find(params[:id])
+      @inbox = Inbox.includes(:messages, :users).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
