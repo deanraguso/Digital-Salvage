@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :inboxes, except: [:edit, :update]
   post 'inboxes/message_create/:id', to: 'inboxes#message_create', as: "inbox_message_create"
 
-  resources :addresses
+  resources :addresses, except: [:create, :new, :index]
   resources :items
   get 'item/search(/:query)', to: "items#search", as: "item_search"
 
