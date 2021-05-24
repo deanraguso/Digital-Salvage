@@ -10,6 +10,8 @@ class ItemsController < ApplicationController
   def search
     require 'constants'
     @items = Item.all.includes(images_attachments: :blob)
+
+    
     @part_types = Constants::PART_TYPES
   end
 
