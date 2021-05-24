@@ -8,7 +8,9 @@ class ItemsController < ApplicationController
   end
 
   def search
+    require 'constants'
     @items = Item.all.includes(images_attachments: :blob)
+    @part_types = Constants::PART_TYPES
   end
 
   # GET /items/1 or /items/1.json
