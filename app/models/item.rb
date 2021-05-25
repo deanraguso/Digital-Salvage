@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
     has_one :order
     belongs_to :user
-    has_many_attached :images, service: :amazon
+    has_many_attached :images, service: :amazon, dependent: :destroy
 
     # Validation
     validates :price, presence: true, numericality: { greater_than: 0 }
