@@ -5,34 +5,33 @@
         <% @orders.each do |order| %>
             <div class="card mb-3 m-2" style="max-width: 540px; min-width:200px ">
                 <div class="row">
+                    <% unless order.item.nil? %>
+                        <% unless order.item.images[0].nil? %>
+                            <div class="col-md-6">
+                            <% order.item.images.each do |photo| %>
+                                <%= image_tag(photo, :width => 200) %>
+                            <% end %>
+                            </div>  
+                            <div class="col-md-6"> 
+                        <% else %>
 
-                    <% unless order.item.images[0].nil? %>
-                        <div class="col-md-6">
-                        <% order.item.images.each do |photo| %>
-                            <%= image_tag(photo, :width => 200) %>
-                        <% end %>
-                        </div>  
-                        <div class="col-md-6"> 
-                    <% else %>
+                            <div class="col-md-"> 
 
-                        <div class="col-md-"> 
-
-                    <% end%>
-                        <div class="card-body">
-                            <strong><%= order.item.description %></strong>
-                            <br>
-                            <br>
-                            <strong>Seller: </strong>
-                            <%= order.item.user.email %>
-                            <br>
-                            <strong>Date of Purchase: </strong><%= order.created_at %>
-                            <br>
-                            <%= link_to "Details", orders_show_path(order.id), class: "btn btn-primary" %>
-                            <br><br>
+                        <% end%>
+                            <div class="card-body">
+                                <strong><%= order.item.description %></strong>
+                                <br>
+                                <br>
+                                <strong>Seller: </strong>
+                                <%= order.item.user.email %>
+                                <br>
+                                <strong>Date of Purchase: </strong><%= order.created_at %>
+                                <br>
+                                <%= link_to "Details", orders_show_path(order.id), class: "btn btn-primary" %>
+                                <br><br>
+                            </div>
                         </div>
-                    </div>
-
-                    
+                    <% end %>
                 </div>
             </div>
         <% end %>
