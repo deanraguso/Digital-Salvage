@@ -13,10 +13,6 @@ Users of the website can buy and sell their used computer parts, with all the fu
  - Users can buy a listed item, through Stripe, and view their order.
  - A buyer can message a seller directly to enquire about the product.
 
-### Sitemap
-
-### Screenshots
-
 ### Target Audience
 This application is designed to cater to an educated audience, who have a decent level of understanding with what component they are selling, and what component they seek to buy.
 
@@ -29,11 +25,6 @@ This is not intended for users who wish to sell old computers they know nothing 
 - The database management system used in Postgresql.
 - The front-end seen by the user is a combination of HTML, CSS and JavaScript (with some jQuery).
 - The website is hosted on a Heroku server.
-
-## User Stories:
-
-## ERD with comments:
-
 ## High-Level Components:
 There are several high-level components within my application. The user, items, orders, the inbox, and the message.
 ## Third Party Services:
@@ -55,10 +46,6 @@ S3 is highly scalable, depending on the package you choose, you can have whateve
 Heroku acts as a repository, which then gets hosted similarly to how it is locally, but on a globally available domain. 
 
 It's simple to use, you install the Heroku CLI, and from there, git push to the remotely configured respository on heroku. You can debug, and use the Rails console also through the CLI.
-
-## Explain the present database relations:
-
-
 ## Task Tracking:
 GitHub Projects: https://github.com/deanraguso/Digital-Salvage/projects?query=is%3Aclosed 
 
