@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_042525) do
+ActiveRecord::Schema.define(version: 2021_05_25_091044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,13 +57,6 @@ ActiveRecord::Schema.define(version: 2021_05_20_042525) do
   create_table "inboxes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "inboxes_messages", id: false, force: :cascade do |t|
-    t.bigint "inbox_id", null: false
-    t.bigint "message_id", null: false
-    t.index ["inbox_id"], name: "index_inboxes_messages_on_inbox_id"
-    t.index ["message_id"], name: "index_inboxes_messages_on_message_id"
   end
 
   create_table "inboxes_users", id: false, force: :cascade do |t|

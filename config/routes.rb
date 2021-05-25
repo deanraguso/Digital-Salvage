@@ -20,5 +20,7 @@ Rails.application.routes.draw do
   root 'pages#index'
   get 'pages/index'
 
+  get 'sample/sign/in', to: 'pages#sample_sign_in'
+
   # mount ActionCable.server => '/cable'
 end

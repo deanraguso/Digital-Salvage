@@ -1,10 +1,34 @@
 <div class="container-fluid row row-cols-md-2 p-2 g-3 justify-content-center">
-    <div class="container col-md-6 col-12 text-center">
-        <h1>Welcome</h1>
+    <div class="container col-md-5 col-12 text-center">
+        <br>
+        <h1>Welcome to Digital Salvage!</h1>
+        <br><br>
+        <div class="container-flex bg-white rounded">
+            <h4 class="bg-dark text-white rounded-top p-1">Do you have old or used computer components to sell?</h4>
+            <br>
+            <p>Why not <strong>sell them here</strong>, on Digital Salvage!</p>
+            <br>
+            <p>This site is <strong>solely dedicated</strong> to the trade of used PC salvage.</p>
+            <br>
+            <p>Communicate directly with the seller, and let us safely handle payments and order tracking.</p>
+            <%= link_to "So what are you waiting for? Join today!", new_user_registration_path, class: "nav-link btn btn-success" %>
+        </div>
+        <br>
+        <div class="container-flex bg-white rounded">
+            <h4 class="bg-dark text-white rounded-top p-1">Project Information</h4>
+            <a href="https://drive.google.com/file/d/1D9lszuztAm9nGrcwXaYC6M_PONKq5ILg/view?usp=sharing" target="_BLANK"><p>Project Software Requirement Specification (SRS)</p></a>
+            <a href="https://drive.google.com/file/d/1AWiVRyy1j9Tt4wMrredg4hfwMcyBvmZa/view?usp=sharing"><p>Website Wireframe</p></a>
+            <a href="https://drive.google.com/file/d/1J8NOZkmltWNc7nYC62oKrGx2CzW8sfTb/view?usp=sharing" target="_BLANK"><p>Database Entity Relationship Diagram (ERD)</p></a>
+            <a href="https://github.com/deanraguso/Digital-Salvage" target="_BLANK"><p>GitHub Respository</p></a>
+            <a href="https://deanraguso.github.io/" target="_BLANK"><p>Creators Personal Website</p></a>
+            
+        </div>
     </div>
-    <div class="container card col-md-5 col-12 text-center justify-content-center">
+    <div class="container card col-md-6 col-12 mt-5 text-center justify-content-center">
         <div class="container-fluid">
-            <%= image_tag 'DS_logo', size: "400x200" %>
+            <%= image_tag 'DS_logo.svg', style: "width:100%" %>
+            <br>
+            <br>
         </div>
         <strong>Quick Start</strong>
         <ol>
@@ -14,5 +38,7 @@
             <li>Ready to purchase? Select "Purchase" to be redirected to a secure Stripe checkout.</li>
             <li>After you've made your purchase, you may see your order through the "Orders" link in the top navigation.</li>
         </ol>
+        <%= link_to "Sample Sign In", sample_sign_in_path, class: "btn btn-primary" %>
+        <br>
     </div>
 </div>
