@@ -1,5 +1,5 @@
 <div class="container-fluid p-3">
-    <%= link_to 'Back', inboxes_path , class: "float-right btn btn-danger m-1" %>
+    
 
     <!-- Input Form -->
     <%= render 'messages/message_form' %>
@@ -12,4 +12,5 @@
             <%= render partial: 'messages/message', locals: {message: m} %>
         <% end %>
     </div>
+    <%= link_to 'Back', inboxes_path , class: "float-right btn btn-danger m-1" %>
 </div>

@@ -21,12 +21,10 @@ class InboxesController < ApplicationController
   def message_create
     @message = Message.new(message_params)
     @message.user_id = current_user.id
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to inbox_path(params[:id]), notice: "Message was successfully created." }
-      else
-        format.html { redirect_to inbox_path(params[:id]), notice: "Message couldn't be created!" }
-      end
+    @inbox = Inbox.find params[:id]
+
+    if @message.save!
+      InboxChannel.broadcast_to @inbox, @message
     end
   end
 
