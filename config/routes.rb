@@ -22,5 +22,5 @@ Rails.application.routes.draw do
 
   get 'sample/sign/in', to: 'pages#sample_sign_in'
 
-  # mount ActionCable.server => '/cable'
+  mount ActionCable.server => '/cable'
 end
