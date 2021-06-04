@@ -14,3 +14,11 @@
     </div>
     <%= link_to 'Back', inboxes_path , class: "float-right btn btn-danger m-1" %>
 </div>
+
+<%# Pass the ids and emails to js %>
+<%= javascript_tag do %>
+    window.this_user_id = "<%= current_user.id %>";
+    window.this_user_email = "<%= current_user.email%>";
+    window.other_user_id = "<%= @inbox.users.select {|u| u.id != current_user.id}[0].id %>";
+    window.other_user_email = "<%= @inbox.users.select {|u| u.id != current_user.id}[0].email %>";
+<% end %>
