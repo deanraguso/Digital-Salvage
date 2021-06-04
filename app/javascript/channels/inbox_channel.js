@@ -39,7 +39,6 @@ if(url.indexOf("inboxes/") !== -1){
 
     received(data) {
       // Called when there's incoming data on the websocket for this channel
-      console.log(data)
       document.querySelector("#messages").insertAdjacentHTML("afterbegin", createMessage(data.user_id, data.content))
     }
   });
